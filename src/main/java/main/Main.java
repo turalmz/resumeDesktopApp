@@ -7,9 +7,14 @@ package main;
 
 import com.company.entity.User;
 import com.company.Context;
+import com.company.dao.inter.CountryDaoInter;
 import com.company.dao.inter.UserDaoInter;
+import com.company.entity.Country;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.ArrayList;
+import java.sql.Date;
+import java.util.List;
 import javax.swing.JFrame;
 
 /**
@@ -24,12 +29,14 @@ public class Main extends javax.swing.JFrame {
     private UserDaoInter userDao = Context.instanceUserDao();
     User loggedInUser;
 
+    private CountryDaoInter countryDao = Context.instanceCountryDao();
+
     public Main() {
         initComponents();
         loggedInUser = userDao.getById(1);
         fillUserComponent();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-
+        fillOtherComponent();
     }
 
     private void fillUserComponent() {
@@ -42,11 +49,27 @@ public class Main extends javax.swing.JFrame {
         txtBirthdate.setText(sdt);
         txtEmail.setText(loggedInUser.getEmail());
         txtPhone.setText(loggedInUser.getPhone());
-        jFormattedTextField1.setValue(dt);
         txtAddress.setText(loggedInUser.getAddress());
-        
-//        cbBirthplace.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
-//        cbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Item 1", "Item 2", "Item 3", "Item 4"}));
+
+    }
+
+    private void fillOtherComponent() {
+        cbBirthplace.removeAllItems();
+        cbNationality.removeAllItems();
+        List<String> countryList = new ArrayList();
+        List<String> nationList = new ArrayList();
+
+        for (Country con : countryDao.getAll()) {
+
+            if (!countryList.contains(con.getName())) {
+                cbBirthplace.addItem(con.getName());
+                countryList.add(con.getName());
+            }
+            if (!nationList.contains(con.getNatinality())) {
+                cbNationality.addItem(con.getNatinality());
+                nationList.add(con.getNatinality());
+            }
+        }
 
     }
 
@@ -82,7 +105,6 @@ public class Main extends javax.swing.JFrame {
         txtBirthdate = new javax.swing.JTextField();
         cbNationality = new javax.swing.JComboBox<>();
         cbBirthplace = new javax.swing.JComboBox<>();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
         pnlSkills = new javax.swing.JPanel();
         pnlHistory = new javax.swing.JPanel();
 
@@ -171,8 +193,6 @@ public class Main extends javax.swing.JFrame {
 
         cbBirthplace.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Azerbaijan", "America", "Japan" }));
 
-        jFormattedTextField1.setFormatterFactory(new javax.swing.text.DefaultFormatterFactory(new javax.swing.text.DateFormatter(java.text.DateFormat.getDateInstance(java.text.DateFormat.SHORT))));
-
         javax.swing.GroupLayout pnlDetailsLayout = new javax.swing.GroupLayout(pnlDetails);
         pnlDetails.setLayout(pnlDetailsLayout);
         pnlDetailsLayout.setHorizontalGroup(
@@ -181,35 +201,32 @@ public class Main extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(lbNationality)
-                    .addGroup(pnlDetailsLayout.createSequentialGroup()
-                        .addGroup(pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDetailsLayout.createSequentialGroup()
-                                .addComponent(lbEmail)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlDetailsLayout.createSequentialGroup()
-                                .addComponent(lbPhone)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlDetailsLayout.createSequentialGroup()
-                                .addComponent(lbAdderss)
-                                .addGap(39, 39, 39)
-                                .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(pnlDetailsLayout.createSequentialGroup()
-                                .addGroup(pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(pnlDetailsLayout.createSequentialGroup()
-                                        .addComponent(lbBirthday)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDetailsLayout.createSequentialGroup()
-                                        .addComponent(lbBirthplace)
-                                        .addGap(31, 31, 31)))
-                                .addGroup(pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                    .addComponent(txtBirthdate, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
-                                    .addComponent(cbNationality, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                    .addComponent(cbBirthplace, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                        .addGap(18, 18, 18)
-                        .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(318, Short.MAX_VALUE))
+                    .addGroup(pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                        .addGroup(javax.swing.GroupLayout.Alignment.LEADING, pnlDetailsLayout.createSequentialGroup()
+                            .addComponent(lbEmail)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlDetailsLayout.createSequentialGroup()
+                            .addComponent(lbPhone)
+                            .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txtPhone, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlDetailsLayout.createSequentialGroup()
+                            .addComponent(lbAdderss)
+                            .addGap(39, 39, 39)
+                            .addComponent(txtAddress, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(pnlDetailsLayout.createSequentialGroup()
+                            .addGroup(pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                .addGroup(pnlDetailsLayout.createSequentialGroup()
+                                    .addComponent(lbBirthday)
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, pnlDetailsLayout.createSequentialGroup()
+                                    .addComponent(lbBirthplace)
+                                    .addGap(31, 31, 31)))
+                            .addGroup(pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                .addComponent(txtBirthdate, javax.swing.GroupLayout.DEFAULT_SIZE, 83, Short.MAX_VALUE)
+                                .addComponent(cbNationality, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(cbBirthplace, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))))
+                .addContainerGap(434, Short.MAX_VALUE))
         );
         pnlDetailsLayout.setVerticalGroup(
             pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -229,8 +246,7 @@ public class Main extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbBirthday)
-                    .addComponent(txtBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtBirthdate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(5, 5, 5)
                 .addGroup(pnlDetailsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(lbBirthplace)
@@ -290,14 +306,29 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
-    
+
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        String name = txtName.getText();
-        String surname = txtSurname.getText();
-        String profileDescription = txtAreaProfile.getText();
+        loggedInUser.setFirstname(txtName.getText());
+        loggedInUser.setLastname(txtSurname.getText());
 
-        // TODO add your handling code here:
+        loggedInUser.setProfileDescription(txtAreaProfile.getText());
+        
+        
+        try {
+          long l = sdf.parse(txtBirthdate.getText()).getTime();
+          Date bd = new Date(l);
+          loggedInUser.setBirthDate(bd);
+
+        } catch (ParseException ex) {
+            System.out.print("Hyuston we got problem");
+        }
+          
+        loggedInUser.setAddress(txtAddress.getText());
+        loggedInUser.setPhone(txtPhone.getText());
+        loggedInUser.setEmail(txtEmail.getText());
+        userDao.updateUser(loggedInUser);
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void cbNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNationalityActionPerformed
@@ -343,7 +374,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cbBirthplace;
     private javax.swing.JComboBox<String> cbNationality;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lbAdderss;
     private javax.swing.JLabel lbBirthday;
