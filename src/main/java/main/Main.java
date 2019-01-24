@@ -50,7 +50,6 @@ public class Main extends javax.swing.JFrame {
         txtEmail.setText(loggedInUser.getEmail());
         txtPhone.setText(loggedInUser.getPhone());
         txtAddress.setText(loggedInUser.getAddress());
-
     }
 
     private void fillOtherComponent() {
@@ -321,7 +320,7 @@ public class Main extends javax.swing.JFrame {
           loggedInUser.setBirthDate(bd);
 
         } catch (ParseException ex) {
-            System.out.print("Hyuston we got problem");
+            System.out.print("Houston, we have a problem");
         }
           
         loggedInUser.setAddress(txtAddress.getText());
