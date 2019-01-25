@@ -27,13 +27,13 @@ public class UserForm extends javax.swing.JFrame {
      * Creates new form Main
      */
     private UserDaoInter userDao = Context.instanceUserDao();
-    User loggedInUser;
+    User currentUser;
 
     private CountryDaoInter countryDao = Context.instanceCountryDao();
 
     public UserForm(int id) {
         initComponents();
-        loggedInUser = userDao.getById(id);
+        currentUser = userDao.getById(id);
         fillUserComponent();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         fillOtherComponent();
@@ -41,27 +41,27 @@ public class UserForm extends javax.swing.JFrame {
 
     public UserForm() {
         initComponents();
-        loggedInUser = new User(-1);
+        currentUser = new User(-1);
         fillUserComponent();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         fillOtherComponent();
     }
 
     private void fillUserComponent() {
-        txtName.setText(loggedInUser.getFirstname());
-        txtSurname.setText(loggedInUser.getLastname());
-        txtAreaProfile.setText(loggedInUser.getProfileDescription());
-        txtName.setText(loggedInUser.getFirstname());
+        txtName.setText(currentUser.getFirstname());
+        txtSurname.setText(currentUser.getLastname());
+        txtAreaProfile.setText(currentUser.getProfileDescription());
+        txtName.setText(currentUser.getFirstname());
         try {
-            Date dt = loggedInUser.getBirthDate();
+            Date dt = currentUser.getBirthDate();
             String sdt = sdf.format(dt);
             txtBirthdate.setText(sdt);
         } catch (Exception ex) {
 
         }
-        txtEmail.setText(loggedInUser.getEmail());
-        txtPhone.setText(loggedInUser.getPhone());
-        txtAddress.setText(loggedInUser.getAddress());
+        txtEmail.setText(currentUser.getEmail());
+        txtPhone.setText(currentUser.getPhone());
+        txtAddress.setText(currentUser.getAddress());
     }
 
     private void fillOtherComponent() {
@@ -320,24 +320,29 @@ public class UserForm extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
-        loggedInUser.setFirstname(txtName.getText());
-        loggedInUser.setLastname(txtSurname.getText());
+        currentUser.setFirstname(txtName.getText());
+        currentUser.setLastname(txtSurname.getText());
 
-        loggedInUser.setProfileDescription(txtAreaProfile.getText());
+        currentUser.setProfileDescription(txtAreaProfile.getText());
 
         try {
             long l = sdf.parse(txtBirthdate.getText()).getTime();
             Date bd = new Date(l);
-            loggedInUser.setBirthDate(bd);
+            currentUser.setBirthDate(bd);
 
         } catch (ParseException ex) {
             System.out.print("Houston, we have a problem");
         }
 
-        loggedInUser.setAddress(txtAddress.getText());
-        loggedInUser.setPhone(txtPhone.getText());
-        loggedInUser.setEmail(txtEmail.getText());
-        userDao.updateUser(loggedInUser);
+        currentUser.setAddress(txtAddress.getText());
+        currentUser.setPhone(txtPhone.getText());
+        currentUser.setEmail(txtEmail.getText());
+        if (currentUser.getId() > -1) {
+            userDao.updateUser(currentUser);
+        } else if (currentUser.getId() == -1) {
+            userDao.insertUser(currentUser);
+
+        }
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
