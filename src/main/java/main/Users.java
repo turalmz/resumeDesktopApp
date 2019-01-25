@@ -114,9 +114,15 @@ public class Users extends javax.swing.JFrame {
             row.add(us.getFirstname());
             row.add(us.getLastname());
 //            txtAreaProfile.setText(us.getProfileDescription());
-            Date dt = us.getBirthDate();
-            String sdt = sdf.format(dt);
-            row.add(sdt);
+            try {
+                Date dt = us.getBirthDate();
+                String sdt = sdf.format(dt);
+                row.add(sdt);
+
+            } catch (Exception ex) {
+                row.add(null);
+
+            }
             row.add(us.getEmail());
             row.add(us.getPhone());
             row.add(us.getAddress());
@@ -283,14 +289,14 @@ User usr;
 
                     usr.setFirstname("%");
                 } else {
-                    usr.setFirstname(txtName.getText());
+                    usr.setFirstname("%"+txtName.getText()+"%");
 
                 }
                 if (txtLastname.getText().equals("")) {
                     usr.setLastname("%");
 
                 } else {
-                    usr.setLastname(txtLastname.getText());
+                    usr.setLastname("%"+txtLastname.getText()+"%");
 
                 }
                 usr.setId(-1);
