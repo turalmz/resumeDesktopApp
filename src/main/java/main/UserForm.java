@@ -282,6 +282,11 @@ public class UserForm extends javax.swing.JFrame {
         jLabel1.setText("Skill");
 
         skills.setText("Skills");
+        skills.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                skillsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout pnlSkillsLayout = new javax.swing.GroupLayout(pnlSkills);
         pnlSkills.setLayout(pnlSkillsLayout);
@@ -553,6 +558,12 @@ public class UserForm extends javax.swing.JFrame {
     private void cbNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNationalityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbNationalityActionPerformed
+
+    private void skillsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skillsActionPerformed
+
+        Skills uf = new Skills();
+        uf.setVisible(true);
+    }//GEN-LAST:event_skillsActionPerformed
 
     /**
      * @param args the command line arguments

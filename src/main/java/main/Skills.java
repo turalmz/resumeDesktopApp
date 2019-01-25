@@ -6,10 +6,8 @@
 package main;
 
 import com.company.Context;
-import com.company.dao.impl.UserDaoImpl;
-import com.company.entity.User;
-import java.sql.Date;
-import java.text.SimpleDateFormat;
+import com.company.dao.inter.SkillDaoInter;
+import com.company.entity.Skill;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
@@ -20,111 +18,53 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author TURAL
  */
-public class Users extends javax.swing.JFrame {
+public class Skills extends javax.swing.JFrame {
 
     /**
      * Creates new form Users
      */
-    private final UserDaoImpl userDao = (UserDaoImpl) Context.instanceUserDao();
-    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+    private final SkillDaoInter skillDao = Context.instanceSkillDao();
 
-    public Users() {
+    public Skills() {
         initComponents();
-        generateUsers();
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        generateSkills(null);
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
 
-    private void generateUsers() {
-        List<User> users = userDao.getAll();
-        DefaultTableModel tableModel = new DefaultTableModel();
-        Vector vectorHeaders = new Vector();
+    private void generateSkills(Skill skl) {
+        List<Skill> skills;
+        if (skl == null) {
+            skills = skillDao.getAll();
+            System.err.println("We are in null");
 
-        vectorHeaders.add("id");
-        vectorHeaders.add("Firstname");
-        vectorHeaders.add("Lastname");
-        vectorHeaders.add("Birth Date");
+        } else if (skl.getId() == -1) {
+            skills = skillDao.getBySkill(skl);
+            System.err.println("We are in Name");
 
-        vectorHeaders.add("Email");
-        vectorHeaders.add("Phone");
-        vectorHeaders.add("Address");
-
-        Vector vectorRows = new Vector();
-        for (User us : users) {
-
-            Vector row = new Vector();
-            row.add(us.getId());
-
-            row.add(us.getFirstname());
-            row.add(us.getLastname());
-//            txtAreaProfile.setText(us.getProfileDescription());
-            try {
-                Date dt = us.getBirthDate();
-                String sdt = sdf.format(dt);
-                row.add(sdt);
-
-            } catch (Exception ex) {
-                row.add(null);
-
-            }
-            row.add(us.getEmail());
-            row.add(us.getPhone());
-            row.add(us.getAddress());
-            vectorRows.add(row);
-        }
-        tableModel.setDataVector(vectorRows, vectorHeaders);
-        tblUsers.setModel(tableModel);
-
-    }
-
-    private void generateUsers(User usr) {
-        List<User> users;
-        if (usr == null) {
-            users = userDao.getAll();
-
-        } else if (usr.getId() == -1) {
-            users = userDao.getByUser(usr);
         } else {
 
-            users = new ArrayList<User>();
-            System.out.println(userDao.getById(usr.getId()));
-            users.add(userDao.getById(usr.getId()));
-            System.out.println(users);
+            skills = new ArrayList<Skill>();
+            System.err.println("We are in id");
+
+            System.out.println(skillDao.getById(skl.getId()));
+            skills.add(skillDao.getById(skl.getId()));
+            System.out.println(skills);
 
         }
         DefaultTableModel tableModel = new DefaultTableModel();
         Vector vectorHeaders = new Vector();
 
-        vectorHeaders.add("id");
-        vectorHeaders.add("Firstname");
-        vectorHeaders.add("Lastname");
-        vectorHeaders.add("Birth Date");
-
-        vectorHeaders.add("Email");
-        vectorHeaders.add("Phone");
-        vectorHeaders.add("Address");
+        vectorHeaders.add("Id");
+        vectorHeaders.add("Name");
 
         Vector vectorRows = new Vector();
-        for (User us : users) {
+        for (Skill sObj : skills) {
 
             Vector row = new Vector();
-            row.add(us.getId());
+            row.add(sObj.getId());
 
-            row.add(us.getFirstname());
-            row.add(us.getLastname());
-//            txtAreaProfile.setText(us.getProfileDescription());
-            try {
-                Date dt = us.getBirthDate();
-                String sdt = sdf.format(dt);
-                row.add(sdt);
-
-            } catch (Exception ex) {
-                row.add(null);
-
-            }
-            row.add(us.getEmail());
-            row.add(us.getPhone());
-            row.add(us.getAddress());
+            row.add(sObj.getName());
             vectorRows.add(row);
         }
         tableModel.setDataVector(vectorRows, vectorHeaders);
@@ -142,16 +82,14 @@ public class Users extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        txtName = new javax.swing.JTextField();
+        txtSkill = new javax.swing.JTextField();
         btnAdd = new javax.swing.JButton();
         btnUpdate = new javax.swing.JButton();
         btnDelete = new javax.swing.JButton();
         btnSearch = new javax.swing.JButton();
         txtId = new javax.swing.JTextField();
-        txtLastname = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblUsers = new javax.swing.JTable();
 
@@ -190,9 +128,7 @@ public class Users extends javax.swing.JFrame {
 
         jLabel1.setText("Id");
 
-        jLabel2.setText("Firstname");
-
-        jLabel4.setText("Lastname");
+        jLabel2.setText("Skill Name");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -212,15 +148,10 @@ public class Users extends javax.swing.JFrame {
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(txtLastname, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(txtSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(306, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -228,13 +159,11 @@ public class Users extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel2))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtLastname, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txtSkill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtId, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(btnSearch)
@@ -278,34 +207,30 @@ public class Users extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-User usr;
+    Skill skl = null;
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
+        skl = new Skill(-1, "");
 
         if (txtId.getText().equals("")) {
             {
-                usr = new User(-1);
-                if (txtName.getText().equals("")) {
-
-                    usr.setFirstname("%");
-                } else {
-                    usr.setFirstname("%"+txtName.getText()+"%");
-
-                }
-                if (txtLastname.getText().equals("")) {
-                    usr.setLastname("%");
+                if (txtSkill.getText().equals("")) {
+                    skl.setName("%");
+                    System.err.println("WE are in name");
 
                 } else {
-                    usr.setLastname("%"+txtLastname.getText()+"%");
+                    skl.setName("%"+txtSkill.getText()+"%");
 
                 }
-                usr.setId(-1);
-                generateUsers(usr);
+                System.err.println("WE are in null or name");
+
+                generateSkills(skl);
             }
         } else {
+            System.err.println("WE are in id");
 
-            usr = new User(Integer.parseInt(txtId.getText()));
-            System.out.println(usr.getId());
-            generateUsers(usr);
+            skl = new Skill(Integer.parseInt(txtId.getText()), "%");
+            System.out.println(skl.getId());
+            generateSkills(skl);
         }
 
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -320,32 +245,22 @@ User usr;
             System.out.println("value : " + value);
             System.out.println("row : " + row);
 
-            userDao.removeUser(Integer.parseInt(value));
+            skillDao.removeSkill(Integer.parseInt(value));
 
         }
-        generateUsers(usr);
+        generateSkills(skl);
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-        UserForm uf = new UserForm();
-        uf.setVisible(true);
+//        UserForm uf = new UserForm();
+//        uf.setVisible(true);
 
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
-        int column = 0;
 
-        int row = tblUsers.getSelectedRow();
-        System.out.println("Count : " + row);
-        if (row > -1) {
-
-            String value = tblUsers.getModel().getValueAt(row, column).toString();
-            UserForm uf = new UserForm(Integer.parseInt(value));
-            uf.setVisible(true);
-
-        }
     }//GEN-LAST:event_btnUpdateActionPerformed
 
     /**
@@ -365,20 +280,21 @@ User usr;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Skills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Skills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Skills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Users.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Skills.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Users().setVisible(true);
+                new Skills().setVisible(true);
             }
         });
     }
@@ -390,12 +306,10 @@ User usr;
     private javax.swing.JButton btnUpdate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tblUsers;
     private javax.swing.JTextField txtId;
-    private javax.swing.JTextField txtLastname;
-    private javax.swing.JTextField txtName;
+    private javax.swing.JTextField txtSkill;
     // End of variables declaration//GEN-END:variables
 }
