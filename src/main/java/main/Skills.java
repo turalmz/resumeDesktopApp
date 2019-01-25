@@ -27,31 +27,21 @@ public class Skills extends javax.swing.JFrame {
 
     public Skills() {
         initComponents();
-        generateSkills(null);
+        generateSkills();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
 
-    private void generateSkills(Skill skl) {
+    private void generateSkillsById(int id) {
         List<Skill> skills;
-        if (skl == null) {
-            skills = skillDao.getAll();
-            System.err.println("We are in null");
 
-        } else if (skl.getId() == -1) {
-            skills = skillDao.getBySkill(skl);
-            System.err.println("We are in Name");
+        skills = new ArrayList<Skill>();
+        System.err.println("We are in id");
 
-        } else {
+        System.out.println(skillDao.getById(id));
+        skills.add(skillDao.getById(id));
+        System.out.println(skills);
 
-            skills = new ArrayList<Skill>();
-            System.err.println("We are in id");
-
-            System.out.println(skillDao.getById(skl.getId()));
-            skills.add(skillDao.getById(skl.getId()));
-            System.out.println(skills);
-
-        }
         DefaultTableModel tableModel = new DefaultTableModel();
         Vector vectorHeaders = new Vector();
 
@@ -68,7 +58,55 @@ public class Skills extends javax.swing.JFrame {
             vectorRows.add(row);
         }
         tableModel.setDataVector(vectorRows, vectorHeaders);
-        tblUsers.setModel(tableModel);
+        tblSkills.setModel(tableModel);
+
+    }
+
+    private void generateSkillsByName(String name) {
+        List<Skill> skills;
+        skills = skillDao.getByName(name);
+        System.err.println("We are in Name");
+
+        DefaultTableModel tableModel = new DefaultTableModel();
+        Vector vectorHeaders = new Vector();
+
+        vectorHeaders.add("Id");
+        vectorHeaders.add("Name");
+
+        Vector vectorRows = new Vector();
+        for (Skill sObj : skills) {
+
+            Vector row = new Vector();
+            row.add(sObj.getId());
+
+            row.add(sObj.getName());
+            vectorRows.add(row);
+        }
+        tableModel.setDataVector(vectorRows, vectorHeaders);
+        tblSkills.setModel(tableModel);
+
+    }
+
+    private void generateSkills() {
+        List<Skill> skills = skillDao.getAll();
+
+        DefaultTableModel tableModel = new DefaultTableModel();
+        Vector vectorHeaders = new Vector();
+
+        vectorHeaders.add("Id");
+        vectorHeaders.add("Name");
+
+        Vector vectorRows = new Vector();
+        for (Skill sObj : skills) {
+
+            Vector row = new Vector();
+            row.add(sObj.getId());
+
+            row.add(sObj.getName());
+            vectorRows.add(row);
+        }
+        tableModel.setDataVector(vectorRows, vectorHeaders);
+        tblSkills.setModel(tableModel);
 
     }
 
@@ -91,7 +129,7 @@ public class Skills extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        tblUsers = new javax.swing.JTable();
+        tblSkills = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -148,9 +186,8 @@ public class Skills extends javax.swing.JFrame {
                         .addComponent(btnUpdate, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(btnDelete, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(txtSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addComponent(txtSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(306, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -172,7 +209,7 @@ public class Skills extends javax.swing.JFrame {
                     .addComponent(btnDelete)))
         );
 
-        tblUsers.setModel(new javax.swing.table.DefaultTableModel(
+        tblSkills.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -183,7 +220,7 @@ public class Skills extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblUsers);
+        jScrollPane1.setViewportView(tblSkills);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -209,28 +246,24 @@ public class Skills extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
     Skill skl = null;
     private void btnSearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSearchActionPerformed
-        skl = new Skill(-1, "");
 
         if (txtId.getText().equals("")) {
             {
                 if (txtSkill.getText().equals("")) {
-                    skl.setName("%");
-                    System.err.println("WE are in name");
+                    System.err.println("WE are in null");
+                    generateSkills();
 
                 } else {
-                    skl.setName("%"+txtSkill.getText()+"%");
+                    System.err.println("WE are in name ");
+                    generateSkillsByName("%" + txtSkill.getText() + "%");
 
                 }
-                System.err.println("WE are in null or name");
 
-                generateSkills(skl);
             }
         } else {
             System.err.println("WE are in id");
 
-            skl = new Skill(Integer.parseInt(txtId.getText()), "%");
-            System.out.println(skl.getId());
-            generateSkills(skl);
+            generateSkillsById(Integer.parseInt(txtId.getText()));
         }
 
     }//GEN-LAST:event_btnSearchActionPerformed
@@ -239,27 +272,39 @@ public class Skills extends javax.swing.JFrame {
 
         int column = 0;
 
-        for (int row : tblUsers.getSelectedRows()) {
+        for (int row : tblSkills.getSelectedRows()) {
             System.out.println("Count : " + row);
-            String value = tblUsers.getModel().getValueAt(row, column).toString();
+            String value = tblSkills.getModel().getValueAt(row, column).toString();
             System.out.println("value : " + value);
             System.out.println("row : " + row);
 
             skillDao.removeSkill(Integer.parseInt(value));
 
         }
-        generateSkills(skl);
+        generateSkills();
 
     }//GEN-LAST:event_btnDeleteActionPerformed
 
     private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddActionPerformed
 
-//        UserForm uf = new UserForm();
-//        uf.setVisible(true);
+        SkillForm sf = new SkillForm();
+        sf.setVisible(true);
 
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
+
+        int column = 0;
+
+        int row = tblSkills.getSelectedRow();
+        System.out.println("Count : " + row);
+        if (row > -1) {
+
+            String value = tblSkills.getModel().getValueAt(row, column).toString();
+
+            SkillForm sf = new SkillForm(Integer.parseInt(value));
+            sf.setVisible(true);
+        }
 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
@@ -308,7 +353,7 @@ public class Skills extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable tblUsers;
+    private javax.swing.JTable tblSkills;
     private javax.swing.JTextField txtId;
     private javax.swing.JTextField txtSkill;
     // End of variables declaration//GEN-END:variables
