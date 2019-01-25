@@ -304,7 +304,7 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 

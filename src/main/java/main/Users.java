@@ -27,7 +27,7 @@ public class Users extends javax.swing.JFrame {
      * Creates new form Users
      */
     private final UserDaoImpl userDao = (UserDaoImpl) Context.instanceUserDao();
-    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+    private final SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     public Users() {
         initComponents();
@@ -59,9 +59,15 @@ public class Users extends javax.swing.JFrame {
             row.add(us.getFirstname());
             row.add(us.getLastname());
 //            txtAreaProfile.setText(us.getProfileDescription());
-            Date dt = us.getBirthDate();
-            String sdt = sdf.format(dt);
-            row.add(sdt);
+            try {
+                Date dt = us.getBirthDate();
+                String sdt = sdf.format(dt);
+                row.add(sdt);
+
+            } catch (Exception ex) {
+                row.add(null);
+
+            }
             row.add(us.getEmail());
             row.add(us.getPhone());
             row.add(us.getAddress());

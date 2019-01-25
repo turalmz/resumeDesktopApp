@@ -37,6 +37,8 @@ public class UserForm extends javax.swing.JFrame {
         fillUserComponent();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         fillOtherComponent();
+        this.setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+
     }
 
     public UserForm() {
@@ -45,6 +47,8 @@ public class UserForm extends javax.swing.JFrame {
         fillUserComponent();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         fillOtherComponent();
+        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE );
+
     }
 
     private void fillUserComponent() {
@@ -316,7 +320,7 @@ public class UserForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-mm-dd");
+    private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
@@ -380,7 +384,7 @@ public class UserForm extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Main().setVisible(true);
+                new UserForm().setVisible(true);
             }
         });
     }
