@@ -524,6 +524,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="update"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="updateEmpHistoryActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="deleteEmpHistory">
               <Properties>
@@ -551,6 +554,9 @@
                       </Table>
                     </Property>
                   </Properties>
+                  <Events>
+                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblEmpHistoryMouseEntered"/>
+                  </Events>
                 </Component>
               </SubComponents>
             </Container>

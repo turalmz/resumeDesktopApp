@@ -53,7 +53,7 @@ public class UserForm extends javax.swing.JFrame {
         fillSkillComponent();
         fillEmpHistoryComponent();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-
+        tblEmpHistory.setEnabled(true);
     }
 
     public UserForm() {
@@ -66,6 +66,7 @@ public class UserForm extends javax.swing.JFrame {
         fillSkillComponent();
         fillEmpHistoryComponent();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        tblEmpHistory.setEnabled(true);
 
     }
 
@@ -471,6 +472,11 @@ public class UserForm extends javax.swing.JFrame {
         });
 
         updateEmpHistory.setText("update");
+        updateEmpHistory.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                updateEmpHistoryActionPerformed(evt);
+            }
+        });
 
         deleteEmpHistory.setText("delete");
         deleteEmpHistory.addActionListener(new java.awt.event.ActionListener() {
@@ -490,6 +496,11 @@ public class UserForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
+        tblEmpHistory.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                tblEmpHistoryMouseEntered(evt);
+            }
+        });
         jScrollPane3.setViewportView(tblEmpHistory);
 
         jLabel2.setText("Header");
@@ -682,6 +693,42 @@ public class UserForm extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_addEmpHistoryActionPerformed
+
+    private void updateEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateEmpHistoryActionPerformed
+
+    }//GEN-LAST:event_updateEmpHistoryActionPerformed
+
+    private void tblEmpHistoryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpHistoryMouseEntered
+        int column = 0;
+
+        int row = tblEmpHistory.getSelectedRow();
+        System.out.println("Count : " + row);
+        if (row > -1) {
+
+            String value = tblEmpHistory.getModel().getValueAt(row, column).toString();
+
+            EmpHistory em = listEmpHis.get(row);
+            txtHeader.setText(em.getHeader());
+            txtJobDescription.setText(em.getJobDescription());
+
+            try {
+                Date dt = em.getBeginDate();
+                String sdt = sdf.format(dt);
+
+                txtBeginDate.setText(sdt);
+
+                dt = em.getBeginDate();
+                sdt = sdf.format(dt);
+
+                txtEndDate.setText(sdt);
+
+            } catch (Exception ex) {
+                System.out.print("Houston, we have a problem");
+
+            }
+
+        }
+    }//GEN-LAST:event_tblEmpHistoryMouseEntered
 
     /**
      * @param args the command line arguments
