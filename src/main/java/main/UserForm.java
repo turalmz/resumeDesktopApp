@@ -42,6 +42,7 @@ public class UserForm extends javax.swing.JFrame {
     private EmpHistoryDaoInter empHistoryDao = Context.instanceEmpHistoryDao();
     List<EmpHistory> listEmpHis;
     List<UserSkill> listUserSkill;
+    List<Skill> skillList;
 
     public UserForm(int id) {
         initComponents();
@@ -49,7 +50,10 @@ public class UserForm extends javax.swing.JFrame {
         fillUserComponent();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         fillCountryComponent();
+        listUserSkill = userSkillDao.getAllSkillByUserId(currentUser.getId());
+
         fillUserSkillComponent();
+
         fillSkillComponent();
         listEmpHis = empHistoryDao.getAll();
 
@@ -64,7 +68,10 @@ public class UserForm extends javax.swing.JFrame {
         fillUserComponent();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         fillCountryComponent();
+        listUserSkill = userSkillDao.getAllSkillByUserId(currentUser.getId());
+
         fillUserSkillComponent();
+
         fillSkillComponent();
         listEmpHis = empHistoryDao.getAll();
 
@@ -162,21 +169,18 @@ public class UserForm extends javax.swing.JFrame {
     private void fillSkillComponent() {
         cbSkill.removeAllItems();
 
-        List<String> skillyList = new ArrayList();
+        skillList = skillDao.getAll();
 
-        for (Skill el : skillDao.getAll()) {
+        for (Skill el : skillList) {
 
-            if (!skillyList.contains(el.getName())) {
+            if (!skillList.contains(el.getName())) {
                 cbSkill.addItem(el.getName());
-                skillyList.add(el.getName());
             }
         }
 
     }
 
     private void fillUserSkillComponent() {
-
-        listUserSkill = userSkillDao.getAllSkillByUserId(currentUser.getId());
 
         DefaultTableModel tableModel = new DefaultTableModel();
         Vector vectorHeaders = new Vector();
@@ -313,6 +317,11 @@ public class UserForm extends javax.swing.JFrame {
         tpUserInfo.addTab("Profile", pnlProfile);
 
         addSkill.setText("add");
+        addSkill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addSkillActionPerformed(evt);
+            }
+        });
 
         cbSkill.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
 
@@ -624,8 +633,19 @@ public class UserForm extends javax.swing.JFrame {
 
             ((DefaultTableModel) tblSkills.getModel()).removeRow(row);
             listUserSkill.remove(row);
+fillUserSkillComponent();
+        }
+    }//GEN-LAST:event_deleteSkillActionPerformed
 
-        }    }//GEN-LAST:event_deleteSkillActionPerformed
+    private void addSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSkillActionPerformed
+        
+        if (cbSkill.getSelectedItem() != null) {
+            System.out.println(cbSkill.getSelectedItem().toString());
+            UserSkill us = new UserSkill(null, currentUser, skillList.get(cbSkill.getSelectedIndex()), 1);
+            listUserSkill.add(us);
+fillUserSkillComponent();
+        }
+    }//GEN-LAST:event_addSkillActionPerformed
 
     /**
      * @param args the command line arguments
