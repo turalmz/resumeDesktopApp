@@ -686,6 +686,7 @@ public class UserForm extends javax.swing.JFrame {
         try {
             listEmpHis.add(em);
             fillEmpHistoryComponent();
+            System.out.print(listEmpHis);
 
             return true;
         } catch (Exception ex) {
@@ -696,6 +697,7 @@ public class UserForm extends javax.swing.JFrame {
     public boolean updateEmpHistory(EmpHistory em) {
         try {
             fillEmpHistoryComponent();
+            System.out.print(listEmpHis);
 
             return true;
         } catch (Exception ex) {

@@ -46,14 +46,14 @@ public class EmpHistoryForm extends javax.swing.JFrame {
         currentEm = em;
         fillEmpHistory(em);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        boolean updated = true;
+        updated = true;
 
     }
 
     public EmpHistoryForm(UserForm form) {
         initComponents();
         parentForm = form;
-        boolean updated = false;
+        updated = false;
 
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -89,7 +89,7 @@ public class EmpHistoryForm extends javax.swing.JFrame {
 
     EmpHistory save() {
         if (txtHeader.getText() != "") {
-            if (updated) {
+            if (!updated) {
                 currentEm = new EmpHistory(null, null, txtHeader.getText(), null, null, txtJobDescription.getText());
             } else {
                 currentEm.setHeader(txtHeader.getText());
@@ -260,10 +260,15 @@ public class EmpHistoryForm extends javax.swing.JFrame {
         boolean result = false;
         if (updated) {
             result = (parentForm).updateEmpHistory(em);
+            System.out.print("updated");
 
         } else {
             result = (parentForm).addEmpHistory(em);
+            System.out.print("added");
+
         }
+        dispose();
+
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
