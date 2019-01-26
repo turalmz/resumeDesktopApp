@@ -41,6 +41,7 @@ public class UserForm extends javax.swing.JFrame {
     private SkillDaoInter skillDao = Context.instanceSkillDao();
     private EmpHistoryDaoInter empHistoryDao = Context.instanceEmpHistoryDao();
     List<EmpHistory> listEmpHis;
+    List<UserSkill> listUserSkill;
 
     public UserForm(int id) {
         initComponents();
@@ -175,6 +176,8 @@ public class UserForm extends javax.swing.JFrame {
 
     private void fillUserSkillComponent() {
 
+        listUserSkill = userSkillDao.getAllSkillByUserId(currentUser.getId());
+
         DefaultTableModel tableModel = new DefaultTableModel();
         Vector vectorHeaders = new Vector();
 
@@ -184,7 +187,7 @@ public class UserForm extends javax.swing.JFrame {
 
         Vector vectorRows = new Vector();
 
-        for (UserSkill us : userSkillDao.getAllSkillByUserId(currentUser.getId())) {
+        for (UserSkill us : listUserSkill) {
             Vector row = new Vector();
             row.add(us.getSkill().getName());
             row.add(us.getPower());
@@ -327,6 +330,11 @@ public class UserForm extends javax.swing.JFrame {
         jScrollPane2.setViewportView(tblSkills);
 
         deleteSkill.setText("delete");
+        deleteSkill.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                deleteSkillActionPerformed(evt);
+            }
+        });
 
         jLabel1.setText("Skill");
 
@@ -606,6 +614,18 @@ public class UserForm extends javax.swing.JFrame {
 
         }
     }//GEN-LAST:event_updateEmpHistoryActionPerformed
+
+    private void deleteSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSkillActionPerformed
+        int column = 0;
+
+        int row = tblSkills.getSelectedRow();
+        System.out.println("Count : " + row);
+        if (row > -1) {
+
+            ((DefaultTableModel) tblSkills.getModel()).removeRow(row);
+            listUserSkill.remove(row);
+
+        }    }//GEN-LAST:event_deleteSkillActionPerformed
 
     /**
      * @param args the command line arguments
