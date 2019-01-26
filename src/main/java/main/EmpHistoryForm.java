@@ -36,19 +36,24 @@ public class EmpHistoryForm extends javax.swing.JFrame {
      * Creates new form Main
      */
     private EmpHistoryDaoInter empHistoryDao = Context.instanceEmpHistoryDao();
-    List<EmpHistory> listEmpHis;
-    JFrame parentForm = null;
+    UserForm parentForm = null;
+    EmpHistory currentEm;
+    boolean updated = true;
 
-    public EmpHistoryForm(JFrame form, EmpHistory em) {
+    public EmpHistoryForm(UserForm form, EmpHistory em) {
         initComponents();
-        parentForm = form;
+        parentForm = (UserForm) form;
+        currentEm = em;
         fillEmpHistory(em);
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        boolean updated = true;
+
     }
 
-    public EmpHistoryForm(JFrame form) {
+    public EmpHistoryForm(UserForm form) {
         initComponents();
         parentForm = form;
+        boolean updated = false;
 
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
     }
@@ -56,6 +61,8 @@ public class EmpHistoryForm extends javax.swing.JFrame {
     public EmpHistoryForm() {
         initComponents();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        boolean updated = false;
+
     }
 
     private void fillEmpHistory(EmpHistory em) {
@@ -80,13 +87,19 @@ public class EmpHistoryForm extends javax.swing.JFrame {
 
     }
 
-    void save() {
+    EmpHistory save() {
         if (txtHeader.getText() != "") {
-            EmpHistory em = new EmpHistory(null, null, txtHeader.getText(), null, null, txtJobDescription.getText());
+            if (updated) {
+                currentEm = new EmpHistory(null, null, txtHeader.getText(), null, null, txtJobDescription.getText());
+            } else {
+                currentEm.setHeader(txtHeader.getText());
+                currentEm.setJobDescription(txtJobDescription.getText());
+
+            }
             try {
                 long l = sdf.parse(txtEndDate.getText()).getTime();
                 Date bd = new Date(l);
-                em.setBeginDate(bd);
+                currentEm.setBeginDate(bd);
 
             } catch (ParseException ex) {
                 System.out.print("Houston, we have a problem");
@@ -94,13 +107,14 @@ public class EmpHistoryForm extends javax.swing.JFrame {
             try {
                 long l = sdf.parse(txtEndDate.getText()).getTime();
                 Date bd = new Date(l);
-                em.setEndDate(bd);
+                currentEm.setEndDate(bd);
 
             } catch (ParseException ex) {
                 System.out.print("Houston, we have a problem");
             }
 
         }
+        return currentEm;
     }
 
     /**
@@ -242,7 +256,14 @@ public class EmpHistoryForm extends javax.swing.JFrame {
 
     private void btnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSaveActionPerformed
 
+        EmpHistory em = save();
+        boolean result = false;
+        if (updated) {
+            result = (parentForm).updateEmpHistory(em);
 
+        } else {
+            result = (parentForm).addEmpHistory(em);
+        }
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

@@ -50,6 +50,8 @@ public class UserForm extends javax.swing.JFrame {
         fillCountryComponent();
         fillUserSkillComponent();
         fillSkillComponent();
+        listEmpHis = empHistoryDao.getAll();
+
         fillEmpHistoryComponent();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         tblEmpHistory.setEnabled(true);
@@ -63,6 +65,8 @@ public class UserForm extends javax.swing.JFrame {
         fillCountryComponent();
         fillUserSkillComponent();
         fillSkillComponent();
+        listEmpHis = empHistoryDao.getAll();
+
         fillEmpHistoryComponent();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         tblEmpHistory.setEnabled(true);
@@ -108,7 +112,6 @@ public class UserForm extends javax.swing.JFrame {
     }
 
     private void fillEmpHistoryComponent() {
-        listEmpHis = empHistoryDao.getAll();
         DefaultTableModel tableModel = new DefaultTableModel();
         Vector vectorHeaders = new Vector();
 
@@ -597,7 +600,6 @@ public class UserForm extends javax.swing.JFrame {
         System.out.println("Count : " + row);
         if (row > -1) {
 
-            String value = tblEmpHistory.getModel().getValueAt(row, column).toString();
             EmpHistory em = listEmpHis.get(row);
             EmpHistoryForm ef = new EmpHistoryForm(this, em);
             ef.setVisible(true);
@@ -679,4 +681,27 @@ public class UserForm extends javax.swing.JFrame {
     private javax.swing.JTextField txtSurname;
     private javax.swing.JButton updateEmpHistory;
     // End of variables declaration//GEN-END:variables
+
+    public boolean addEmpHistory(EmpHistory em) {
+        try {
+            listEmpHis.add(em);
+            fillEmpHistoryComponent();
+
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+    }
+
+    public boolean updateEmpHistory(EmpHistory em) {
+        try {
+            fillEmpHistoryComponent();
+
+            return true;
+        } catch (Exception ex) {
+            return false;
+        }
+
+    }
+
 }
