@@ -377,9 +377,6 @@
             <Component class="javax.swing.JTextField" name="txtEmail">
             </Component>
             <Component class="javax.swing.JTextField" name="txtBirthdate">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="txtBirthdateActionPerformed"/>
-              </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbBirthplace">
               <Properties>
@@ -433,43 +430,14 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane3" min="-2" max="-2" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="txtHeader" max="32767" attributes="0"/>
-                                      <Component id="addEmpHistory" pref="71" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="addEmpHistory" min="-2" pref="71" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="updateEmpHistory" pref="71" max="32767" attributes="0"/>
-                                      <Component id="txtJobDescription" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
+                              <Component id="updateEmpHistory" min="-2" pref="71" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Group type="103" alignment="0" groupAlignment="0" max="-2" attributes="0">
-                                      <Component id="deleteEmpHistory" pref="71" max="32767" attributes="0"/>
-                                      <Component id="txtBeginDate" max="32767" attributes="0"/>
-                                  </Group>
-                                  <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                              </Group>
-                              <EmptySpace max="-2" attributes="0"/>
-                              <Group type="103" groupAlignment="0" attributes="0">
-                                  <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                                  <Group type="102" alignment="0" attributes="0">
-                                      <Component id="txtEndDate" min="-2" pref="71" max="-2" attributes="0"/>
-                                      <EmptySpace min="-2" pref="56" max="-2" attributes="0"/>
-                                      <Component id="jFormattedTextField1" min="-2" pref="115" max="-2" attributes="0"/>
-                                      <EmptySpace max="-2" attributes="0"/>
-                                      <Component id="btnBeginDate" min="-2" max="-2" attributes="0"/>
-                                  </Group>
-                              </Group>
+                              <Component id="deleteEmpHistory" min="-2" pref="71" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace pref="186" max="32767" attributes="0"/>
+                      <EmptySpace pref="254" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -478,40 +446,18 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel3" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace min="-2" pref="7" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="txtHeader" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtJobDescription" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtBeginDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="txtEndDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jFormattedTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="btnBeginDate" alignment="3" min="-2" max="-2" attributes="0"/>
-                      </Group>
-                      <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="addEmpHistory" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="updateEmpHistory" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="deleteEmpHistory" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane3" min="-2" pref="320" max="-2" attributes="0"/>
-                      <EmptySpace pref="50" max="32767" attributes="0"/>
+                      <EmptySpace pref="112" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JTextField" name="txtHeader">
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtJobDescription">
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtBeginDate">
-            </Component>
             <Component class="javax.swing.JButton" name="addEmpHistory">
               <Properties>
                 <Property name="text" type="java.lang.String" value="add"/>
@@ -554,47 +500,9 @@
                       </Table>
                     </Property>
                   </Properties>
-                  <Events>
-                    <EventHandler event="mouseEntered" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="tblEmpHistoryMouseEntered"/>
-                  </Events>
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel2">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Header"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel3">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Description"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel4">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Begin Date"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JTextField" name="txtEndDate">
-            </Component>
-            <Component class="javax.swing.JLabel" name="jLabel5">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="End Date"/>
-              </Properties>
-            </Component>
-            <Component class="javax.swing.JFormattedTextField" name="jFormattedTextField1">
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jFormattedTextField1ActionPerformed"/>
-              </Events>
-            </Component>
-            <Component class="javax.swing.JButton" name="btnBeginDate">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="&gt;"/>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnBeginDateActionPerformed"/>
-              </Events>
-            </Component>
           </SubComponents>
         </Container>
       </SubComponents>

@@ -24,7 +24,6 @@ import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JFrame;
-import util.SwingCalendar;
 
 /**
  *
@@ -235,21 +234,11 @@ public class UserForm extends javax.swing.JFrame {
         cbBirthplace = new javax.swing.JComboBox<>();
         cbNationality = new javax.swing.JComboBox<>();
         pnlHistory = new javax.swing.JPanel();
-        txtHeader = new javax.swing.JTextField();
-        txtJobDescription = new javax.swing.JTextField();
-        txtBeginDate = new javax.swing.JTextField();
         addEmpHistory = new javax.swing.JButton();
         updateEmpHistory = new javax.swing.JButton();
         deleteEmpHistory = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblEmpHistory = new javax.swing.JTable();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        txtEndDate = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jFormattedTextField1 = new javax.swing.JFormattedTextField();
-        btnBeginDate = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -394,12 +383,6 @@ public class UserForm extends javax.swing.JFrame {
 
         lbNationality1.setText("Nationality");
 
-        txtBirthdate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtBirthdateActionPerformed(evt);
-            }
-        });
-
         cbBirthplace.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Azerbaijan", "America", "Japan" }));
 
         cbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "American", "Azeri", "Russian", "Turk", "Chinese" }));
@@ -496,33 +479,7 @@ public class UserForm extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        tblEmpHistory.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                tblEmpHistoryMouseEntered(evt);
-            }
-        });
         jScrollPane3.setViewportView(tblEmpHistory);
-
-        jLabel2.setText("Header");
-
-        jLabel3.setText("Description");
-
-        jLabel4.setText("Begin Date");
-
-        jLabel5.setText("End Date");
-
-        jFormattedTextField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jFormattedTextField1ActionPerformed(evt);
-            }
-        });
-
-        btnBeginDate.setText(">");
-        btnBeginDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnBeginDateActionPerformed(evt);
-            }
-        });
 
         javax.swing.GroupLayout pnlHistoryLayout = new javax.swing.GroupLayout(pnlHistory);
         pnlHistory.setLayout(pnlHistoryLayout);
@@ -533,59 +490,24 @@ public class UserForm extends javax.swing.JFrame {
                 .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(pnlHistoryLayout.createSequentialGroup()
-                        .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(txtHeader)
-                                .addComponent(addEmpHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE))
-                            .addComponent(jLabel2))
+                        .addComponent(addEmpHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(updateEmpHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                                .addComponent(txtJobDescription))
-                            .addComponent(jLabel3))
+                        .addComponent(updateEmpHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                .addComponent(deleteEmpHistory, javax.swing.GroupLayout.DEFAULT_SIZE, 71, Short.MAX_VALUE)
-                                .addComponent(txtBeginDate))
-                            .addComponent(jLabel4))
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel5)
-                            .addGroup(pnlHistoryLayout.createSequentialGroup()
-                                .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(56, 56, 56)
-                                .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 115, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(btnBeginDate)))))
-                .addContainerGap(186, Short.MAX_VALUE))
+                        .addComponent(deleteEmpHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(254, Short.MAX_VALUE))
         );
         pnlHistoryLayout.setVerticalGroup(
             pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(pnlHistoryLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(jLabel5))
-                .addGap(7, 7, 7)
-                .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(txtHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtJobDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtBeginDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jFormattedTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnBeginDate))
-                .addGap(18, 18, 18)
-                .addGroup(pnlHistoryLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addEmpHistory)
                     .addComponent(updateEmpHistory)
                     .addComponent(deleteEmpHistory))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(50, Short.MAX_VALUE))
+                .addContainerGap(112, Short.MAX_VALUE))
         );
 
         tpUserInfo.addTab("Emp History", pnlHistory);
@@ -640,12 +562,17 @@ public class UserForm extends javax.swing.JFrame {
     }//GEN-LAST:event_btnSaveActionPerformed
 
     private void deleteEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEmpHistoryActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_deleteEmpHistoryActionPerformed
+        int column = 0;
 
-    private void txtBirthdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtBirthdateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtBirthdateActionPerformed
+        int row = tblEmpHistory.getSelectedRow();
+        System.out.println("Count : " + row);
+        if (row > -1) {
+
+            ((DefaultTableModel) tblEmpHistory.getModel()).removeRow(row);
+            listEmpHis.remove(row);
+
+        }
+    }//GEN-LAST:event_deleteEmpHistoryActionPerformed
 
     private void cbNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNationalityActionPerformed
         // TODO add your handling code here:
@@ -657,48 +584,13 @@ public class UserForm extends javax.swing.JFrame {
         uf.setVisible(true);
     }//GEN-LAST:event_skillsActionPerformed
 
-    private void jFormattedTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jFormattedTextField1ActionPerformed
-
-
-    }//GEN-LAST:event_jFormattedTextField1ActionPerformed
-
-    private void btnBeginDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnBeginDateActionPerformed
-
-        SwingCalendar.call();
-
-
-    }//GEN-LAST:event_btnBeginDateActionPerformed
-
     private void addEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmpHistoryActionPerformed
 
-        if (txtHeader.getText() != "") {
-            EmpHistory em = new EmpHistory(null, currentUser, txtHeader.getText(), null, null, txtJobDescription.getText());
-            try {
-                long l = sdf.parse(txtBeginDate.getText()).getTime();
-                Date bd = new Date(l);
-                em.setBeginDate(bd);
-
-            } catch (ParseException ex) {
-                System.out.print("Houston, we have a problem");
-            }
-            try {
-                long l = sdf.parse(txtEndDate.getText()).getTime();
-                Date bd = new Date(l);
-                em.setEndDate(bd);
-
-            } catch (ParseException ex) {
-                System.out.print("Houston, we have a problem");
-            }
-            listEmpHis.add(em);
-        }
-
+        EmpHistoryForm ef = new EmpHistoryForm(this);
+        ef.setVisible(true);
     }//GEN-LAST:event_addEmpHistoryActionPerformed
 
     private void updateEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateEmpHistoryActionPerformed
-
-    }//GEN-LAST:event_updateEmpHistoryActionPerformed
-
-    private void tblEmpHistoryMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblEmpHistoryMouseEntered
         int column = 0;
 
         int row = tblEmpHistory.getSelectedRow();
@@ -706,29 +598,12 @@ public class UserForm extends javax.swing.JFrame {
         if (row > -1) {
 
             String value = tblEmpHistory.getModel().getValueAt(row, column).toString();
-
             EmpHistory em = listEmpHis.get(row);
-            txtHeader.setText(em.getHeader());
-            txtJobDescription.setText(em.getJobDescription());
-
-            try {
-                Date dt = em.getBeginDate();
-                String sdt = sdf.format(dt);
-
-                txtBeginDate.setText(sdt);
-
-                dt = em.getBeginDate();
-                sdt = sdf.format(dt);
-
-                txtEndDate.setText(sdt);
-
-            } catch (Exception ex) {
-                System.out.print("Houston, we have a problem");
-
-            }
+            EmpHistoryForm ef = new EmpHistoryForm(this, em);
+            ef.setVisible(true);
 
         }
-    }//GEN-LAST:event_tblEmpHistoryMouseEntered
+    }//GEN-LAST:event_updateEmpHistoryActionPerformed
 
     /**
      * @param args the command line arguments
@@ -768,19 +643,13 @@ public class UserForm extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addEmpHistory;
     private javax.swing.JButton addSkill;
-    private javax.swing.JButton btnBeginDate;
     private javax.swing.JButton btnSave;
     private javax.swing.JComboBox<String> cbBirthplace;
     private javax.swing.JComboBox<String> cbNationality;
     private javax.swing.JComboBox<String> cbSkill;
     private javax.swing.JButton deleteEmpHistory;
     private javax.swing.JButton deleteSkill;
-    private javax.swing.JFormattedTextField jFormattedTextField1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
@@ -803,12 +672,8 @@ public class UserForm extends javax.swing.JFrame {
     private javax.swing.JTabbedPane tpUserInfo;
     private javax.swing.JTextField txtAddress;
     private javax.swing.JTextArea txtAreaProfile;
-    private javax.swing.JTextField txtBeginDate;
     private javax.swing.JTextField txtBirthdate;
     private javax.swing.JTextField txtEmail;
-    private javax.swing.JTextField txtEndDate;
-    private javax.swing.JTextField txtHeader;
-    private javax.swing.JTextField txtJobDescription;
     private javax.swing.JTextField txtName;
     private javax.swing.JTextField txtPhone;
     private javax.swing.JTextField txtSurname;
