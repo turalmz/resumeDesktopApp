@@ -29,7 +29,7 @@ public class SkillForm extends javax.swing.JFrame {
     public SkillForm(int id) {
         initComponents();
         currentSkill = skillDao.getById(id);
-
+        generateSkills();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
@@ -37,7 +37,7 @@ public class SkillForm extends javax.swing.JFrame {
     public SkillForm() {
         initComponents();
         currentSkill = new Skill(null, null);
-
+        generateSkills();
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
     }
@@ -151,6 +151,8 @@ public class SkillForm extends javax.swing.JFrame {
             skillDao.insertSkill(currentSkill);
 
         }
+        this.setVisible(false);
+        dispose();
 
     }//GEN-LAST:event_btnSaveActionPerformed
 

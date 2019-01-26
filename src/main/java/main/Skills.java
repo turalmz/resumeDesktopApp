@@ -289,7 +289,7 @@ public class Skills extends javax.swing.JFrame {
 
         SkillForm sf = new SkillForm();
         sf.setVisible(true);
-
+        generateSkills();
     }//GEN-LAST:event_btnAddActionPerformed
 
     private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUpdateActionPerformed
@@ -305,6 +305,7 @@ public class Skills extends javax.swing.JFrame {
             SkillForm sf = new SkillForm(Integer.parseInt(value));
             sf.setVisible(true);
         }
+        generateSkills();
 
     }//GEN-LAST:event_btnUpdateActionPerformed
 
