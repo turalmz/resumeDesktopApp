@@ -35,11 +35,12 @@ public class UserForm extends javax.swing.JFrame {
      * Creates new form Main
      */
     private UserDaoInter userDao = Context.instanceUserDao();
-    User currentUser;
     private CountryDaoInter countryDao = Context.instanceCountryDao();
     private UserSkillDaoInter userSkillDao = Context.instanceUserSkillDao();
     private SkillDaoInter skillDao = Context.instanceSkillDao();
     private EmpHistoryDaoInter empHistoryDao = Context.instanceEmpHistoryDao();
+    
+    User currentUser;
     List<EmpHistory> listEmpHis;
     List<UserSkill> listUserSkill;
     List<Skill> skillList;
@@ -47,40 +48,33 @@ public class UserForm extends javax.swing.JFrame {
     public UserForm(int id) {
         initComponents();
         currentUser = userDao.getById(id);
-        fillUserComponent();
-        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        fillCountryComponent();
-        listUserSkill = userSkillDao.getAllSkillByUserId(currentUser.getId());
-
-        fillUserSkillComponent();
-
-        fillSkillComponent();
-        listEmpHis = empHistoryDao.getAll();
-
-        fillEmpHistoryComponent();
-        this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        tblEmpHistory.setEnabled(true);
+        fillAllComponent();
     }
 
     public UserForm() {
         initComponents();
         currentUser = new User(-1);
+        fillAllComponent();
+
+    }
+    private void fillAllComponent() {
         fillUserComponent();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         fillCountryComponent();
+        
         listUserSkill = userSkillDao.getAllSkillByUserId(currentUser.getId());
-
         fillUserSkillComponent();
-
+        
+        skillList = skillDao.getAll();
         fillSkillComponent();
+        
         listEmpHis = empHistoryDao.getAll();
-
         fillEmpHistoryComponent();
+        
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         tblEmpHistory.setEnabled(true);
-
+    
     }
-
     private void fillUserComponent() {
         txtName.setText(currentUser.getFirstname());
         txtSurname.setText(currentUser.getLastname());
@@ -168,8 +162,6 @@ public class UserForm extends javax.swing.JFrame {
 
     private void fillSkillComponent() {
         cbSkill.removeAllItems();
-
-        skillList = skillDao.getAll();
 
         for (Skill el : skillList) {
 
@@ -633,17 +625,17 @@ public class UserForm extends javax.swing.JFrame {
 
             ((DefaultTableModel) tblSkills.getModel()).removeRow(row);
             listUserSkill.remove(row);
-fillUserSkillComponent();
+            fillUserSkillComponent();
         }
     }//GEN-LAST:event_deleteSkillActionPerformed
 
     private void addSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSkillActionPerformed
-        
+
         if (cbSkill.getSelectedItem() != null) {
             System.out.println(cbSkill.getSelectedItem().toString());
             UserSkill us = new UserSkill(null, currentUser, skillList.get(cbSkill.getSelectedIndex()), 1);
             listUserSkill.add(us);
-fillUserSkillComponent();
+            fillUserSkillComponent();
         }
     }//GEN-LAST:event_addSkillActionPerformed
 
