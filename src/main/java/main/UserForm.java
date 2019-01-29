@@ -18,7 +18,6 @@ import com.company.entity.Skill;
 import com.company.entity.UserSkill;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.sql.Date;
 import java.util.List;
 import java.util.Vector;
@@ -87,7 +86,7 @@ public class UserForm extends javax.swing.JFrame {
             String sdt = sdf.format(dt);
             txtBirthdate.setText(sdt);
         } catch (Exception ex) {
-
+            ex.fillInStackTrace();
         }
         txtEmail.setText(currentUser.getEmail());
         txtPhone.setText(currentUser.getPhone());
@@ -168,7 +167,6 @@ public class UserForm extends javax.swing.JFrame {
 
         vectorHeaders.add("Skill");
         vectorHeaders.add("Power");
-        vectorHeaders.add("User");
 
         Vector vectorRows = new Vector();
 
@@ -176,7 +174,6 @@ public class UserForm extends javax.swing.JFrame {
             Vector row = new Vector();
             row.add(us.getSkill().getName());
             row.add(us.getPower());
-            row.add(currentUser.getFirstname() + " " + currentUser.getLastname());
             vectorRows.add(row);
         }
         tableModel.setDataVector(vectorRows, vectorHeaders);
@@ -204,13 +201,14 @@ public class UserForm extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaProfile = new javax.swing.JTextArea();
         pnlSkills = new javax.swing.JPanel();
-        addSkill = new javax.swing.JButton();
+        btnAddSkill = new javax.swing.JButton();
         cbSkill = new javax.swing.JComboBox<>();
         jScrollPane2 = new javax.swing.JScrollPane();
         tblSkills = new javax.swing.JTable();
-        deleteSkill = new javax.swing.JButton();
+        btnDeleteSkill = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        btnUpdateSkill = new javax.swing.JButton();
         pnlDetails = new javax.swing.JPanel();
         lbAdderss1 = new javax.swing.JLabel();
         lbPhone1 = new javax.swing.JLabel();
@@ -297,10 +295,10 @@ public class UserForm extends javax.swing.JFrame {
 
         tpUserInfo.addTab("Profile", pnlProfile);
 
-        addSkill.setText("add");
-        addSkill.addActionListener(new java.awt.event.ActionListener() {
+        btnAddSkill.setText("add");
+        btnAddSkill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addSkillActionPerformed(evt);
+                btnAddSkillActionPerformed(evt);
             }
         });
 
@@ -317,14 +315,16 @@ public class UserForm extends javax.swing.JFrame {
         ));
         jScrollPane2.setViewportView(tblSkills);
 
-        deleteSkill.setText("delete");
-        deleteSkill.addActionListener(new java.awt.event.ActionListener() {
+        btnDeleteSkill.setText("delete");
+        btnDeleteSkill.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteSkillActionPerformed(evt);
+                btnDeleteSkillActionPerformed(evt);
             }
         });
 
         jLabel1.setText("Skill");
+
+        btnUpdateSkill.setText("update");
 
         javax.swing.GroupLayout pnlSkillsLayout = new javax.swing.GroupLayout(pnlSkills);
         pnlSkills.setLayout(pnlSkillsLayout);
@@ -334,7 +334,10 @@ public class UserForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(pnlSkillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 410, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteSkill)
+                    .addGroup(pnlSkillsLayout.createSequentialGroup()
+                        .addComponent(btnDeleteSkill)
+                        .addGap(26, 26, 26)
+                        .addComponent(btnUpdateSkill))
                     .addGroup(pnlSkillsLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -342,7 +345,7 @@ public class UserForm extends javax.swing.JFrame {
                         .addGap(18, 18, 18)
                         .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(18, 18, 18)
-                        .addComponent(addSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(btnAddSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(296, Short.MAX_VALUE))
         );
         pnlSkillsLayout.setVerticalGroup(
@@ -352,10 +355,12 @@ public class UserForm extends javax.swing.JFrame {
                 .addGroup(pnlSkillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
                     .addComponent(cbSkill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(addSkill)
+                    .addComponent(btnAddSkill)
                     .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
-                .addComponent(deleteSkill)
+                .addGroup(pnlSkillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnDeleteSkill)
+                    .addComponent(btnUpdateSkill))
                 .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 380, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -588,7 +593,7 @@ public class UserForm extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_updateEmpHistoryActionPerformed
 
-    private void deleteSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteSkillActionPerformed
+    private void btnDeleteSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteSkillActionPerformed
         int column = 0;
 
         int row = tblSkills.getSelectedRow();
@@ -599,9 +604,9 @@ public class UserForm extends javax.swing.JFrame {
             listUserSkill.remove(row);
             fillUserSkillComponent();
         }
-    }//GEN-LAST:event_deleteSkillActionPerformed
+    }//GEN-LAST:event_btnDeleteSkillActionPerformed
 
-    private void addSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addSkillActionPerformed
+    private void btnAddSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddSkillActionPerformed
 
         if (cbSkill.getSelectedItem() != null) {
             System.out.println(cbSkill.getSelectedItem().toString());
@@ -609,7 +614,7 @@ public class UserForm extends javax.swing.JFrame {
             listUserSkill.add(us);
             fillUserSkillComponent();
         }
-    }//GEN-LAST:event_addSkillActionPerformed
+    }//GEN-LAST:event_btnAddSkillActionPerformed
 
     /**
      * @param args the command line arguments
@@ -648,13 +653,14 @@ public class UserForm extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addEmpHistory;
-    private javax.swing.JButton addSkill;
+    private javax.swing.JButton btnAddSkill;
+    private javax.swing.JButton btnDeleteSkill;
     private javax.swing.JButton btnSave;
+    private javax.swing.JButton btnUpdateSkill;
     private javax.swing.JComboBox<Country> cbBirthplace;
     private javax.swing.JComboBox<Country> cbNationality;
     private javax.swing.JComboBox<Skill> cbSkill;
     private javax.swing.JButton deleteEmpHistory;
-    private javax.swing.JButton deleteSkill;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;

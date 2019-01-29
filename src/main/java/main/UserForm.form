@@ -170,7 +170,11 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jScrollPane2" min="-2" pref="410" max="-2" attributes="0"/>
-                          <Component id="deleteSkill" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnDeleteSkill" min="-2" max="-2" attributes="0"/>
+                              <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
+                              <Component id="btnUpdateSkill" min="-2" max="-2" attributes="0"/>
+                          </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <Component id="jLabel1" min="-2" pref="45" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -178,7 +182,7 @@
                               <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Component id="jTextField1" min="-2" pref="83" max="-2" attributes="0"/>
                               <EmptySpace type="separate" max="-2" attributes="0"/>
-                              <Component id="addSkill" min="-2" pref="59" max="-2" attributes="0"/>
+                              <Component id="btnAddSkill" min="-2" pref="59" max="-2" attributes="0"/>
                           </Group>
                       </Group>
                       <EmptySpace pref="296" max="32767" attributes="0"/>
@@ -192,11 +196,14 @@
                       <Group type="103" groupAlignment="3" attributes="0">
                           <Component id="jLabel1" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cbSkill" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="addSkill" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnAddSkill" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="jTextField1" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="deleteSkill" min="-2" max="-2" attributes="0"/>
+                      <Group type="103" groupAlignment="3" attributes="0">
+                          <Component id="btnDeleteSkill" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="btnUpdateSkill" alignment="3" min="-2" max="-2" attributes="0"/>
+                      </Group>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jScrollPane2" min="-2" pref="380" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
@@ -205,12 +212,12 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JButton" name="addSkill">
+            <Component class="javax.swing.JButton" name="btnAddSkill">
               <Properties>
                 <Property name="text" type="java.lang.String" value="add"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addSkillActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnAddSkillActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JComboBox" name="cbSkill">
@@ -244,12 +251,12 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JButton" name="deleteSkill">
+            <Component class="javax.swing.JButton" name="btnDeleteSkill">
               <Properties>
                 <Property name="text" type="java.lang.String" value="delete"/>
               </Properties>
               <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="deleteSkillActionPerformed"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="btnDeleteSkillActionPerformed"/>
               </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel1">
@@ -258,6 +265,11 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="jTextField1">
+            </Component>
+            <Component class="javax.swing.JButton" name="btnUpdateSkill">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="update"/>
+              </Properties>
             </Component>
           </SubComponents>
         </Container>
