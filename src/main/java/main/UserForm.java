@@ -564,6 +564,9 @@ public class UserForm extends javax.swing.JFrame {
         currentUser.setAddress(txtAddress.getText());
         currentUser.setPhone(txtPhone.getText());
         currentUser.setEmail(txtEmail.getText());
+
+
+        
         if (currentUser.getId() > -1) {
             userDao.updateUser(currentUser);
         } else if (currentUser.getId() == -1) {
