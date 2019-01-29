@@ -39,7 +39,7 @@ public class UserForm extends javax.swing.JFrame {
     private UserSkillDaoInter userSkillDao = Context.instanceUserSkillDao();
     private SkillDaoInter skillDao = Context.instanceSkillDao();
     private EmpHistoryDaoInter empHistoryDao = Context.instanceEmpHistoryDao();
-    
+
     User currentUser;
     List<EmpHistory> listEmpHis;
     List<UserSkill> listUserSkill;
@@ -57,24 +57,26 @@ public class UserForm extends javax.swing.JFrame {
         fillAllComponent();
 
     }
+
     private void fillAllComponent() {
         fillUserComponent();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
         fillCountryComponent();
-        
+
         listUserSkill = userSkillDao.getAllSkillByUserId(currentUser.getId());
         fillUserSkillComponent();
-        
+
         skillList = skillDao.getAll();
         fillSkillComponent();
-        
+
         listEmpHis = empHistoryDao.getAll();
         fillEmpHistoryComponent();
-        
+
         this.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         tblEmpHistory.setEnabled(true);
-    
+
     }
+
     private void fillUserComponent() {
         txtName.setText(currentUser.getFirstname());
         txtSurname.setText(currentUser.getLastname());
@@ -96,19 +98,9 @@ public class UserForm extends javax.swing.JFrame {
         cbBirthplace.removeAllItems();
         cbNationality.removeAllItems();
 
-        List<String> countryList = new ArrayList();
-        List<String> nationList = new ArrayList();
-
         for (Country con : countryDao.getAll()) {
-
-            if (!countryList.contains(con.getName())) {
-                cbBirthplace.addItem(con.getName());
-                countryList.add(con.getName());
-            }
-            if (!nationList.contains(con.getNatinality())) {
-                cbNationality.addItem(con.getNatinality());
-                nationList.add(con.getNatinality());
-            }
+            cbBirthplace.addItem(con);
+            cbNationality.addItem(con);
         }
 
     }
@@ -164,10 +156,7 @@ public class UserForm extends javax.swing.JFrame {
         cbSkill.removeAllItems();
 
         for (Skill el : skillList) {
-
-            if (!skillList.contains(el.getName())) {
-                cbSkill.addItem(el.getName());
-            }
+            cbSkill.addItem(el);
         }
 
     }
@@ -221,7 +210,7 @@ public class UserForm extends javax.swing.JFrame {
         tblSkills = new javax.swing.JTable();
         deleteSkill = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
-        skills = new javax.swing.JButton();
+        jTextField1 = new javax.swing.JTextField();
         pnlDetails = new javax.swing.JPanel();
         lbAdderss1 = new javax.swing.JLabel();
         lbPhone1 = new javax.swing.JLabel();
@@ -315,8 +304,6 @@ public class UserForm extends javax.swing.JFrame {
             }
         });
 
-        cbSkill.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
-
         tblSkills.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
@@ -339,13 +326,6 @@ public class UserForm extends javax.swing.JFrame {
 
         jLabel1.setText("Skill");
 
-        skills.setText("Skills");
-        skills.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                skillsActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout pnlSkillsLayout = new javax.swing.GroupLayout(pnlSkills);
         pnlSkills.setLayout(pnlSkillsLayout);
         pnlSkillsLayout.setHorizontalGroup(
@@ -358,12 +338,12 @@ public class UserForm extends javax.swing.JFrame {
                     .addGroup(pnlSkillsLayout.createSequentialGroup()
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(cbSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 112, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(addSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(189, 189, 189)
-                        .addComponent(skills)))
-                .addContainerGap(232, Short.MAX_VALUE))
+                        .addComponent(cbSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 93, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(addSkill, javax.swing.GroupLayout.PREFERRED_SIZE, 59, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(296, Short.MAX_VALUE))
         );
         pnlSkillsLayout.setVerticalGroup(
             pnlSkillsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -373,7 +353,7 @@ public class UserForm extends javax.swing.JFrame {
                     .addComponent(jLabel1)
                     .addComponent(cbSkill, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(addSkill)
-                    .addComponent(skills))
+                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(deleteSkill)
                 .addGap(18, 18, 18)
@@ -395,9 +375,6 @@ public class UserForm extends javax.swing.JFrame {
 
         lbNationality1.setText("Nationality");
 
-        cbBirthplace.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Azerbaijan", "America", "Japan" }));
-
-        cbNationality.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "American", "Azeri", "Russian", "Turk", "Chinese" }));
         cbNationality.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 cbNationalityActionPerformed(evt);
@@ -565,8 +542,6 @@ public class UserForm extends javax.swing.JFrame {
         currentUser.setPhone(txtPhone.getText());
         currentUser.setEmail(txtEmail.getText());
 
-
-        
         if (currentUser.getId() > -1) {
             userDao.updateUser(currentUser);
         } else if (currentUser.getId() == -1) {
@@ -592,12 +567,6 @@ public class UserForm extends javax.swing.JFrame {
     private void cbNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNationalityActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_cbNationalityActionPerformed
-
-    private void skillsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_skillsActionPerformed
-
-        Skills uf = new Skills();
-        uf.setVisible(true);
-    }//GEN-LAST:event_skillsActionPerformed
 
     private void addEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmpHistoryActionPerformed
 
@@ -681,15 +650,16 @@ public class UserForm extends javax.swing.JFrame {
     private javax.swing.JButton addEmpHistory;
     private javax.swing.JButton addSkill;
     private javax.swing.JButton btnSave;
-    private javax.swing.JComboBox<String> cbBirthplace;
-    private javax.swing.JComboBox<String> cbNationality;
-    private javax.swing.JComboBox<String> cbSkill;
+    private javax.swing.JComboBox<Country> cbBirthplace;
+    private javax.swing.JComboBox<Country> cbNationality;
+    private javax.swing.JComboBox<Skill> cbSkill;
     private javax.swing.JButton deleteEmpHistory;
     private javax.swing.JButton deleteSkill;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbAdderss1;
     private javax.swing.JLabel lbBirthday1;
     private javax.swing.JLabel lbBirthplace1;
@@ -703,7 +673,6 @@ public class UserForm extends javax.swing.JFrame {
     private javax.swing.JPanel pnlProfile;
     private javax.swing.JPanel pnlSkills;
     private javax.swing.JPanel pnlUserInfo;
-    private javax.swing.JButton skills;
     private javax.swing.JTable tblEmpHistory;
     private javax.swing.JTable tblSkills;
     private javax.swing.JTabbedPane tpUserInfo;
