@@ -556,43 +556,6 @@ public class UserForm extends javax.swing.JFrame {
 
     }//GEN-LAST:event_btnSaveActionPerformed
 
-    private void deleteEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEmpHistoryActionPerformed
-        int column = 0;
-
-        int row = tblEmpHistory.getSelectedRow();
-        System.out.println("Count : " + row);
-        if (row > -1) {
-
-            ((DefaultTableModel) tblEmpHistory.getModel()).removeRow(row);
-            listEmpHis.remove(row);
-
-        }
-    }//GEN-LAST:event_deleteEmpHistoryActionPerformed
-
-    private void cbNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNationalityActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_cbNationalityActionPerformed
-
-    private void addEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmpHistoryActionPerformed
-
-        EmpHistoryForm ef = new EmpHistoryForm(this);
-        ef.setVisible(true);
-    }//GEN-LAST:event_addEmpHistoryActionPerformed
-
-    private void updateEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateEmpHistoryActionPerformed
-        int column = 0;
-
-        int row = tblEmpHistory.getSelectedRow();
-        System.out.println("Count : " + row);
-        if (row > -1) {
-
-            EmpHistory em = listEmpHis.get(row);
-            EmpHistoryForm ef = new EmpHistoryForm(this, em);
-            ef.setVisible(true);
-
-        }
-    }//GEN-LAST:event_updateEmpHistoryActionPerformed
-
     private void btnDeleteSkillActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnDeleteSkillActionPerformed
         int column = 0;
 
@@ -615,6 +578,43 @@ public class UserForm extends javax.swing.JFrame {
             fillUserSkillComponent();
         }
     }//GEN-LAST:event_btnAddSkillActionPerformed
+
+    private void deleteEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEmpHistoryActionPerformed
+        int column = 0;
+
+        int row = tblEmpHistory.getSelectedRow();
+        System.out.println("Count : " + row);
+        if (row > -1) {
+
+            ((DefaultTableModel) tblEmpHistory.getModel()).removeRow(row);
+            listEmpHis.remove(row);
+
+        }
+    }//GEN-LAST:event_deleteEmpHistoryActionPerformed
+
+    private void updateEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateEmpHistoryActionPerformed
+        int column = 0;
+
+        int row = tblEmpHistory.getSelectedRow();
+        System.out.println("Count : " + row);
+        if (row > -1) {
+
+            EmpHistory em = listEmpHis.get(row);
+            EmpHistoryForm ef = new EmpHistoryForm(this, em);
+            ef.setVisible(true);
+
+        }
+    }//GEN-LAST:event_updateEmpHistoryActionPerformed
+
+    private void addEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmpHistoryActionPerformed
+
+        EmpHistoryForm ef = new EmpHistoryForm(this);
+        ef.setVisible(true);
+    }//GEN-LAST:event_addEmpHistoryActionPerformed
+
+    private void cbNationalityActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbNationalityActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbNationalityActionPerformed
 
     /**
      * @param args the command line arguments
