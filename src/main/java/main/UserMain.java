@@ -24,7 +24,6 @@ public class UserMain extends javax.swing.JFrame {
      */
     private UserDaoInter userDao = Context.instanceUserDao();
 
-
     public UserMain() {
         initComponents();
         fillAllComponent();
@@ -44,11 +43,10 @@ public class UserMain extends javax.swing.JFrame {
         txtSurname.setText(Config.loggedInUser.getLastname());
         detailPanel.fillUserComponent();
         skillPanel.fillUserComponent();
+
         profilePanel.fillUserComponent();
         employeeHistoryPanel.fillUserComponent();
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -151,8 +149,8 @@ public class UserMain extends javax.swing.JFrame {
         usr.setLastname(txtSurname.getText());
 
         profilePanel.fillUser(usr);
-        skillPanel.fillUser(usr);
-        employeeHistoryPanel.fillUser(usr);
+        //skillPanel.fillUser(usr);//skillPanel have own save
+        //employeeHistoryPanel.fillUser(usr);//employeeHistoryPanel have own save
         detailPanel.fillUser(usr);
 
         userDao.updateUser(usr);
