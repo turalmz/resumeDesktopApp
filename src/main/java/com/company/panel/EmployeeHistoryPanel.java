@@ -10,8 +10,12 @@ import com.company.dao.inter.EmpHistoryDaoInter;
 import com.company.dao.inter.UserEmpHistoryDaoInter;
 import com.company.entity.EmpHistory;
 import com.company.entity.User;
+import com.company.entity.UserSkill;
 import com.company.resume.Config;
 import java.sql.Date;
+import java.text.ParseException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Vector;
 import javax.swing.table.DefaultTableModel;
 
@@ -26,6 +30,7 @@ public class EmployeeHistoryPanel extends javax.swing.JPanel {
      */
     private EmpHistoryDaoInter empHistoryDao = Context.instanceEmpHistoryDao();
     private UserEmpHistoryDaoInter userEmpHistoryDao = Context.instanceUserEmpHistoryDao();
+    private List<EmpHistory> userEmpHistList = new ArrayList<EmpHistory>();
 
     public EmployeeHistoryPanel() {
         initComponents();
@@ -42,10 +47,14 @@ public class EmployeeHistoryPanel extends javax.swing.JPanel {
     private void initComponents() {
 
         addEmpHistory = new javax.swing.JButton();
-        updateEmpHistory = new javax.swing.JButton();
+        saveEmpHistory = new javax.swing.JButton();
         deleteEmpHistory = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         tblEmpHistory = new javax.swing.JTable();
+        txtHeader = new javax.swing.JTextField();
+        txtDescription = new javax.swing.JTextField();
+        txtBeginDate = new javax.swing.JTextField();
+        txtEndDate = new javax.swing.JTextField();
 
         addEmpHistory.setText("add");
         addEmpHistory.addActionListener(new java.awt.event.ActionListener() {
@@ -54,10 +63,10 @@ public class EmployeeHistoryPanel extends javax.swing.JPanel {
             }
         });
 
-        updateEmpHistory.setText("update");
-        updateEmpHistory.addActionListener(new java.awt.event.ActionListener() {
+        saveEmpHistory.setText("save");
+        saveEmpHistory.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                updateEmpHistoryActionPerformed(evt);
+                saveEmpHistoryActionPerformed(evt);
             }
         });
 
@@ -91,31 +100,73 @@ public class EmployeeHistoryPanel extends javax.swing.JPanel {
                     .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(addEmpHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(28, 28, 28)
+                        .addComponent(deleteEmpHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(txtHeader, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(4, 4, 4)
+                        .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(updateEmpHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(txtBeginDate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(deleteEmpHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(saveEmpHistory, javax.swing.GroupLayout.PREFERRED_SIZE, 71, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(11, 11, 11)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(addEmpHistory)
-                    .addComponent(updateEmpHistory)
-                    .addComponent(deleteEmpHistory))
+                    .addComponent(txtHeader, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDescription, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtBeginDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtEndDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(saveEmpHistory))
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(deleteEmpHistory)
+                    .addComponent(addEmpHistory))
                 .addGap(18, 18, 18)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 320, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 264, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
     private void addEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addEmpHistoryActionPerformed
+        if (txtHeader.getText().trim().isEmpty()) {
 
+            EmpHistory eh = new EmpHistory(0, Config.loggedInUser, txtHeader.getText(), null, null, txtDescription.getText());
+            try {
+                long l = Config.sdf.parse(txtBeginDate.getText()).getTime();
+                Date bd = new Date(l);
+                eh.setBeginDate(bd);
+
+            } catch (ParseException ex) {
+                System.out.print("Houston, we have a problem");
+            }
+            try {
+                long l = Config.sdf.parse(txtEndDate.getText()).getTime();
+                Date bd = new Date(l);
+                eh.setEndDate(bd);
+
+            } catch (ParseException ex) {
+                System.out.print("Houston, we have a problem");
+            }
+
+            empHistoryDao.insertEmpHistory(eh);
+
+        }
+        fillTable();
 
     }//GEN-LAST:event_addEmpHistoryActionPerformed
+
     public void fillUserComponent() {
+        fillTable();
+    }
+
+    public void fillTable() {
         DefaultTableModel tableModel = new DefaultTableModel();
         Vector vectorHeaders = new Vector();
 
@@ -128,7 +179,8 @@ public class EmployeeHistoryPanel extends javax.swing.JPanel {
         vectorHeaders.add("End Date");
 
         Vector vectorRows = new Vector();
-        for (EmpHistory eh : userEmpHistoryDao.getAllEmpHistoryByUserId(Config.loggedInUser.getId())) {
+        userEmpHistList = userEmpHistoryDao.getAllEmpHistoryByUserId(Config.loggedInUser.getId());
+        for (EmpHistory eh : userEmpHistList) {
 
             Vector row = new Vector();
             row.add(eh.getId());
@@ -160,26 +212,54 @@ public class EmployeeHistoryPanel extends javax.swing.JPanel {
         tblEmpHistory.setModel(tableModel);
 
     }
-    private void updateEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateEmpHistoryActionPerformed
+    private void saveEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saveEmpHistoryActionPerformed
         int column = 0;
 
-        int row = tblEmpHistory.getSelectedRow();
-        System.out.println("Count : " + row);
-        if (row > -1) {
+        int index = tblEmpHistory.getSelectedRow();
+        System.out.println("Count : " + index);
+        if (index > -1) {
+            EmpHistory eh = userEmpHistList.get(index);
+            if (txtHeader.getText().trim().isEmpty()) {
+
+                eh = new EmpHistory(eh.getId(), Config.loggedInUser, txtHeader.getText(), null, null, txtDescription.getText());
+                try {
+                    long l = Config.sdf.parse(txtBeginDate.getText()).getTime();
+                    Date bd = new Date(l);
+                    eh.setBeginDate(bd);
+
+                } catch (ParseException ex) {
+                    System.out.print("Houston, we have a problem");
+                }
+                try {
+                    long l = Config.sdf.parse(txtEndDate.getText()).getTime();
+                    Date bd = new Date(l);
+                    eh.setEndDate(bd);
+
+                } catch (ParseException ex) {
+                    System.out.print("Houston, we have a problem");
+                }
+
+                empHistoryDao.updateEmpHistory(eh);
+
+            }
+            fillTable();
 
         }
-    }//GEN-LAST:event_updateEmpHistoryActionPerformed
+
+
+    }//GEN-LAST:event_saveEmpHistoryActionPerformed
 
     private void deleteEmpHistoryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteEmpHistoryActionPerformed
-        int column = 0;
 
-        int row = tblEmpHistory.getSelectedRow();
-        System.out.println("Count : " + row);
-        if (row > -1) {
+        int index = tblEmpHistory.getSelectedRow();
+        System.out.println("Count : " + index);
+        if (index > -1) {
 
-//            ((DefaultTableModel) tblEmpHistory.getModel()).removeRow(row);
-//            listEmpHis.remove(row);
+            EmpHistory eh = userEmpHistList.get(index);
+            empHistoryDao.removeEmpHistory(eh.getId());
         }
+        fillTable();
+
     }//GEN-LAST:event_deleteEmpHistoryActionPerformed
 
 
@@ -187,8 +267,12 @@ public class EmployeeHistoryPanel extends javax.swing.JPanel {
     private javax.swing.JButton addEmpHistory;
     private javax.swing.JButton deleteEmpHistory;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton saveEmpHistory;
     private javax.swing.JTable tblEmpHistory;
-    private javax.swing.JButton updateEmpHistory;
+    private javax.swing.JTextField txtBeginDate;
+    private javax.swing.JTextField txtDescription;
+    private javax.swing.JTextField txtEndDate;
+    private javax.swing.JTextField txtHeader;
     // End of variables declaration//GEN-END:variables
 
     public void fillUser(User usr) {
